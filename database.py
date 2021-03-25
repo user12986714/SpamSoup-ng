@@ -19,23 +19,26 @@ def close_db():
     _CON = None
 
 
+def exec_sql(sql, params=None):
+    _CUR.execute(sql, params)
+    return _CUR.fetchall()
+
+
 def fetch_stat(table, meta_token='<meta>'):
-    _CUR.execute(f"""
+    return exec_sql(f"""
     SELECT pos_count, neg_count
     FROM {table}
     WHERE token = ?
-    """, [meta_token])
-    return _CUR.fetchall()[0]
+    """, [meta_token])[0]
 
 
 def fetch_data(tokens, table):
     placeholders = ', '.join(['?' for _ in tokens])
-    _CUR.execute(f"""
+    return exec_sql(f"""
     SELECT pos_count, neg_count
     FROM {table}
     WHERE token IN ({placeholders});
     """, list(tokens))
-    return _CUR.fetchall()
 
 
-__all__ = ['init_db', 'close_db', 'fetch_stat', 'fetch_data']
+__all__ = ['exec_sql', 'init_db', 'close_db', 'fetch_stat', 'fetch_data']
