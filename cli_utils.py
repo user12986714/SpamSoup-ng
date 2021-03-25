@@ -18,7 +18,7 @@ def close_db():
         _INIT_DB = False
 
 
-def create_table(name):
+def create_table(name, silent=False):
     database.exec_sql(f"""
     CREATE TABLE {name} (
         token TEXT PRIMARY KEY,
@@ -26,14 +26,20 @@ def create_table(name):
         neg_count INTEGER NOT NULL
     );
     """)
+    if not silent:
+        print(f"Created table {name}")
 
 
-def drop_table(name):
+def drop_table(name, silent=False):
     database.exec_sql(f"DROP TABLE {name};")
+    if not silent:
+        print(f"Dropped table {name}")
 
 
-def vacuum():
+def vacuum(silent=False):
     database.exec_sql('VACUUM;')
+    if not silent:
+        print('Vacuumed the database')
 
 
 atexit.register(close_db)
