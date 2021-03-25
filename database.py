@@ -32,7 +32,7 @@ def fetch_stat(table, meta_token='<meta>'):
     """, [meta_token])[0]
 
 
-def fetch_data(tokens, table):
+def fetch_data(table, tokens):
     placeholders = ', '.join(['?' for _ in tokens])
     return exec_sql(f"""
     SELECT pos_count, neg_count
