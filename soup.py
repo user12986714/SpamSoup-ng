@@ -19,10 +19,13 @@ def classify(post):
         pos_all, neg_all = stat
         if prior is None:
             prior = pos_all / (pos_all + neg_all)
-        score = bayes.calculate_score(data, pos_all, neg_all, prior)
-        balanced = score - 0.5
-        refined = balanced * (abs(balanced) / 0.5) * 200
-        total_score += refined * (pos_acc if refined > 0 else neg_acc)
+        try:
+            score = bayes.calculate_score(data, pos_all, neg_all, prior)
+            balanced = score - 0.5
+            refined = balanced * (abs(balanced) / 0.5) * 200
+            total_score += refined * (pos_acc if refined > 0 else neg_acc)
+        except bayes.NoDataError:
+            pass
     return total_score
 
 

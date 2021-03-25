@@ -13,9 +13,9 @@ def to_plain_words(post):
 
 
 def remove_stopwords(words):
+    global _STOPWORDS
     if _STOPWORDS is None:
         import nltk.corpus
-        global _STOPWORDS
         _STOPWORDS = set(nltk.corpus.stopwords.words())
     if isinstance(words, set):
         return words - _STOPWORDS
