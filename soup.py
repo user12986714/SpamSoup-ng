@@ -7,6 +7,8 @@ FRONTENDS = []
 
 def use_frontend(frontend, table, pos_acc, neg_acc,
                  meta_token='<meta>', prior=None):
+    pos_acc -= 0.5
+    neg_acc -= 0.5
     FRONTENDS.append((frontend, table, meta_token, pos_acc, neg_acc, prior))
 
 
@@ -21,9 +23,8 @@ def classify(post):
             prior = pos_all / (pos_all + neg_all)
         try:
             score = bayes.calculate_score(data, pos_all, neg_all, prior)
-            balanced = score - 0.5
-            refined = balanced * (abs(balanced) / 0.5) * 200
-            total_score += refined * (pos_acc if refined > 0 else neg_acc)
+            score -= 0.5
+            total_score += score * (pos_acc if score > 0 else neg_acc)
         except bayes.NoDataError:
             pass
     return total_score
