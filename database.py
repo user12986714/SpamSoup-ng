@@ -20,7 +20,10 @@ def close_db():
 
 
 def exec_sql(sql, params=None):
-    _CUR.execute(sql, params)
+    if params is None:
+        _CUR.execute(sql)
+    else:
+        _CUR.execute(sql, params)
     return _CUR.fetchall()
 
 
