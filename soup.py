@@ -1,5 +1,5 @@
-import database
-import bayes
+from . import database
+from . import bayes
 
 
 FRONTENDS = []

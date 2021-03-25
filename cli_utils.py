@@ -1,5 +1,5 @@
 import atexit
-import database
+from . import database
 
 
 _INIT_DB = False

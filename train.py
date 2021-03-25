@@ -1,4 +1,4 @@
-import database
+from . import database
 
 
 def batch_train(data, frontend, table, meta_token):
