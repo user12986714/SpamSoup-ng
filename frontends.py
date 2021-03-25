@@ -48,3 +48,9 @@ def tokenize_trigram_stopwords(post):
     for i in range(2, len(words)):
         tokens.append(f"{words[i-2]} {words[i-1]} {words[i]}")
     return set(tokens)
+
+
+__all__ = [
+    'tokenize_naive', 'tokenize_naive_stopwords',
+    'tokenize_trigram', 'tokenize_trigram_stopwords'
+]
